@@ -60,7 +60,7 @@
                     "linuxFxVersion": "NODE|10-lts",
                     "alwaysOn": "true",
                     "appCommandLine": "npm start"
-                },
+                }
             },
             "dependsOn": [
                 "[concat('Microsoft.Web/serverFarms/',variables('appServicePlanName'))]"
