@@ -24,3 +24,8 @@ steps:
   inputs:
     targetPath: '$(Build.SourcesDirectory)/101-keyvault-add-access-policy' 
     artifactName: '101-keyvault-add-access-policy'
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Build.SourcesDirectory)/201-key-vault-secret-create' 
+    artifactName: '201-key-vault-secret-create'
