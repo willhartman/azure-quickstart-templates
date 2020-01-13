@@ -39,7 +39,8 @@
             "kind": "linux",
             "location": "[resourceGroup().location]",
             "properties": {
-                "name": "[variables('appServicePlanName')]"
+                "name": "[variables('appServicePlanName')]",
+                "reserved": true
             },
             "sku": {
                 "name" : "P1",
@@ -62,10 +63,11 @@
                 "name": "[parameters('webAppName')]",
                 "serverFarmId": "[resourceId('Microsoft.Web/serverFarms',variables('appServicePlanName'))]",
                 "siteConfig": {
-                    "linuxFxVersion": "NODE|lts",
+                    "linuxFxVersion": "NODE|10-lts",
                     "alwaysOn": "true",
                     "appCommandLine": "npm start"
-                }
+                },
+                "reserved": true
             },
             "dependsOn": [
                 "[concat('Microsoft.Web/serverFarms/',variables('appServicePlanName'))]"
