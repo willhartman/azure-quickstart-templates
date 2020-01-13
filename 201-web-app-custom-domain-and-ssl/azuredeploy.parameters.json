@@ -8,7 +8,7 @@
         "customHostname": {
             "value": "GEN-CUSTOM-FQDN-NAME"
         },
-        "existingKeyVaultId": {
+        "existingKeyVaultName": {
             "value": "GEN-KEYVAULT-RESOURCE-ID"
         },
         "existingKeyVaultSecretName": {
