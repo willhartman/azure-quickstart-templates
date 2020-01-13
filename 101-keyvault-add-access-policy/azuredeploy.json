@@ -32,7 +32,7 @@
     }
   },
   "variables": {        
-    "objectId": "[reference(resourceId('Microsoft.Web/sites', [parameters('appName')]), '2018-02-01', 'Full').identity.principalId]"
+    "objectId": "[reference(resourceId('Microsoft.Web/sites', parameters('appName')), '2018-02-01', 'Full').identity.principalId]"
   },
   "resources": [
     {
