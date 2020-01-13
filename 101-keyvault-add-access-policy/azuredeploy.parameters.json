@@ -5,8 +5,8 @@
     "keyVaultName": {
       "value": "GET-PREREQ-keyVaultName"
     },
-    "objectId": {
-      "value": "GEN-AZUREAD-OBJECTID"
-    }
+    "appName": {
+      "value": "GET-PREREQ-appName"
+    },
   }
 }
