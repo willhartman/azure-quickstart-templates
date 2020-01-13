@@ -52,6 +52,10 @@
             "apiVersion": "2016-03-01",
             "name": "[parameters('webAppName')]",
             "type": "Microsoft.Web/sites",
+            "kind": "app,linux",
+            "identity": {
+                "type": "SystemAssigned"
+            },
             "location": "[resourceGroup().location]",
             "properties": {
                 "name": "[parameters('webAppName')]",
