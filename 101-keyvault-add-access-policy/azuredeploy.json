@@ -32,7 +32,7 @@
     }
   },
   "variables": {        
-    "objectId": "[resourceId('Microsoft.Web/sites', parameters('appName')]"
+    "objectId": "[resourceId('Microsoft.Web/sites', parameters('appName'))]"
   },
   "resources": [
     {
