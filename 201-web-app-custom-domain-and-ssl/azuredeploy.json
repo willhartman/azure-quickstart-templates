@@ -14,10 +14,10 @@
                 "description": "The custom hostname that you wish to add."
             }
         },
-         "existingKeyVaultId":{
+         "existingKeyVaultName":{
             "type":"string",
             "metadata":{
-                "description":"Existing Key Vault resource Id with an access policy to allow Microsoft.Web RP to read Key Vault secrets (Checkout README.md for more information)"
+                "description":"Existing Key Vault Name"
             }
         },
         "existingKeyVaultSecretName":{
@@ -79,7 +79,7 @@
             "apiVersion":"2016-03-01",
             "location":"[resourceGroup().location]",
             "properties":{
-                "keyVaultId":"[parameters('existingKeyVaultId')]",
+                "keyVaultId":"[resourceId('Microsoft.KeyVault/vaults', parameters('existingKeyVaultName'))]",
                 "keyVaultSecretName":"[parameters('existingKeyVaultSecretName')]",
                 "serverFarmId": "[resourceId('Microsoft.Web/serverFarms',variables('appServicePlanName'))]"
             },
