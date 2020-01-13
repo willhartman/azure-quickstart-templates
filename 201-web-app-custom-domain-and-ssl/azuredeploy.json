@@ -59,7 +59,7 @@
                 "siteConfig": {
                     "linuxFxVersion": "NODE|10-lts",
                     "alwaysOn": "true",
-                    "appCommandLine": "npm start",
+                    "appCommandLine": "npm start"
                 },
             },
             "dependsOn": [
