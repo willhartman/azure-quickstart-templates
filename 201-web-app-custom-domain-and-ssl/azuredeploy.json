@@ -43,11 +43,11 @@
                 "reserved": true
             },
             "sku": {
-                "name" : "P1",
-                "tier": "Premium",
-                "size": "1",
-                "family": "P",
-                "capacity": "1"
+                "name": "B2",
+                "tier": "Basic",
+                "size": "B2",
+                "family": "B",
+                "capacity": 1
             }
         },
         {
