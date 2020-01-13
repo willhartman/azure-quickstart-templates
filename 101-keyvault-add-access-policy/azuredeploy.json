@@ -15,10 +15,10 @@
         "description": "Specifies the Azure Active Directory tenant ID that should be used for authenticating requests to the key vault. Get it by using Get-AzSubscription cmdlet."
       }
     },
-    "objectId": {
+    "appName": {
       "type": "string",
       "metadata": {
-        "description": "Specifies the object ID of a user, service principal or security group in the Azure Active Directory tenant for the vault. The object ID must be unique for the list of access policies. Get it by using Get-AzADUser or Get-AzADServicePrincipal cmdlets."
+        "description": "App Service Name - Used to lookup objectId to add access policy to."
       }
     },
     "secretsPermissions": {
@@ -31,6 +31,9 @@
       }
     }
   },
+  "variables": {        
+    "objectId": "[reference(resourceId('Microsoft.Web/sites', [parameters('appName')]), '2018-02-01', 'Full').identity.principalId]"
+  },
   "resources": [
     {
       "type": "Microsoft.KeyVault/vaults/accessPolicies",
@@ -40,7 +43,7 @@
         "accessPolicies": [
           {
             "tenantId": "[parameters('tenantId')]",
-            "objectId": "[parameters('objectId')]",
+            "objectId": "[variables('objectId')]",
             "permissions": {
               "secrets": "[parameters('secretsPermissions')]"
             }
