@@ -55,7 +55,12 @@
             "location": "[resourceGroup().location]",
             "properties": {
                 "name": "[parameters('webAppName')]",
-                "serverFarmId": "[resourceId('Microsoft.Web/serverFarms',variables('appServicePlanName'))]"
+                "serverFarmId": "[resourceId('Microsoft.Web/serverFarms',variables('appServicePlanName'))]",
+                "siteConfig": {
+                    "linuxFxVersion": "NODE|10-lts",
+                    "alwaysOn": "true",
+                    "appCommandLine": "npm start",
+                },
             },
             "dependsOn": [
                 "[concat('Microsoft.Web/serverFarms/',variables('appServicePlanName'))]"
