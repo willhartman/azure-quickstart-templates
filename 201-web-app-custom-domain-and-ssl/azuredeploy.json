@@ -36,6 +36,7 @@
             "apiVersion": "2016-03-01",
             "name": "[variables('appServicePlanName')]",
             "type": "Microsoft.Web/serverfarms",
+            "kind": "linux",
             "location": "[resourceGroup().location]",
             "properties": {
                 "name": "[variables('appServicePlanName')]"
