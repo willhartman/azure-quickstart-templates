@@ -37,6 +37,15 @@
         "description": "Permissions to keys in the vault. Valid values are: all, create, import, update, get, list, delete, backup, restore, encrypt, decrypt, wrapkey, unwrapkey, sign, and verify."
       }
     },
+    "secretsPermissions": {
+      "type": "array",
+      "defaultValue": [
+        "list"
+      ],
+      "metadata": {
+        "description": "Specifies the permissions to secrets in the vault. Valid values are: all, get, list, set, delete, backup, restore, recover, and purge."
+      }
+    },
     "skuName": {
       "type": "string",
       "defaultValue": "Standard",
@@ -62,7 +71,8 @@
             "tenantId": "[parameters('tenantId')]",
             "objectId": "[parameters('objectId')]",
             "permissions": {
-              "keys": "[parameters('keysPermissions')]"
+              "keys": "[parameters('keysPermissions')]",
+              "secrets": "[parameters('secretsPermissions')]"
             }
           }
         ],
