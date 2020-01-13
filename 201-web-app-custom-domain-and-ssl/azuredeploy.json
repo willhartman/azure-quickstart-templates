@@ -57,7 +57,7 @@
                 "name": "[parameters('webAppName')]",
                 "serverFarmId": "[resourceId('Microsoft.Web/serverFarms',variables('appServicePlanName'))]",
                 "siteConfig": {
-                    "linuxFxVersion": "NODE|10-lts",
+                    "linuxFxVersion": "NODE|lts",
                     "alwaysOn": "true",
                     "appCommandLine": "npm start"
                 }
