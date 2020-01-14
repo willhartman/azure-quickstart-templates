@@ -29,3 +29,8 @@ steps:
   inputs:
     targetPath: '$(Build.SourcesDirectory)/201-key-vault-secret-create' 
     artifactName: '201-key-vault-secret-create'
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Build.SourcesDirectory)/resource-group-certificate-from-key-vault' 
+    artifactName: 'resource-group-certificate-from-key-vault'
