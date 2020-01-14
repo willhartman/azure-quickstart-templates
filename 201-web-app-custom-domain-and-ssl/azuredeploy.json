@@ -39,12 +39,12 @@
     "resources": [
         {
             "apiVersion": "2016-03-01",
-            "name": "[variables('appServicePlanName')]",
+            "name": "[parameters('appServicePlanName')]",
             "type": "Microsoft.Web/serverfarms",
             "kind": "linux",
             "location": "[resourceGroup().location]",
             "properties": {
-                "name": "[variables('appServicePlanName')]",
+                "name": "[parameters('appServicePlanName')]",
                 "reserved": true
             },
             "sku": {
@@ -66,7 +66,7 @@
             "location": "[resourceGroup().location]",
             "properties": {
                 "name": "[parameters('webAppName')]",
-                "serverFarmId": "[resourceId('Microsoft.Web/serverFarms',variables('appServicePlanName'))]",
+                "serverFarmId": "[resourceId('Microsoft.Web/serverFarms',parameters('appServicePlanName'))]",
                 "siteConfig": {
                     "linuxFxVersion": "NODE|10-lts",
                     "alwaysOn": "true",
@@ -75,7 +75,7 @@
                 "reserved": true
             },
             "dependsOn": [
-                "[concat('Microsoft.Web/serverFarms/',variables('appServicePlanName'))]"
+                "[concat('Microsoft.Web/serverFarms/',parameters('appServicePlanName'))]"
             ]
         },
         {
@@ -86,7 +86,7 @@
             "properties":{
                 "keyVaultId":"[resourceId('Microsoft.KeyVault/vaults', parameters('existingKeyVaultName'))]",
                 "keyVaultSecretName":"[parameters('existingKeyVaultSecretName')]",
-                "serverFarmId": "[resourceId('Microsoft.Web/serverFarms',variables('appServicePlanName'))]"
+                "serverFarmId": "[resourceId('Microsoft.Web/serverFarms',parameters('appServicePlanName'))]"
             },
             "dependsOn": [
                 "[concat('Microsoft.Web/sites/',parameters('webAppName'))]"
