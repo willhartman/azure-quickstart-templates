@@ -1,0 +1,39 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "existingKeyVaultName": {
+            "type": "string",
+            "metadata": {
+                "description": "Existing Key Vault Name"
+            }
+        },
+        "existingKeyVaultSecretName": {
+            "type": "string",
+            "metadata": {
+                "description": "Key Vault Secret that contains a PFX certificate"
+            }
+        },
+        "certificateName": {
+            "type": "string",
+            "metadata": {
+                "description": "Name for created certificate"
+            }
+        }
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Web/certificates",
+            "name": "[parameters('certificateName')]",
+            "apiVersion": "2016-03-01",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "keyVaultId": "[resourceId('Microsoft.KeyVault/vaults', parameters('existingKeyVaultName'))]",
+                "keyVaultSecretName": "[parameters('existingKeyVaultSecretName')]"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.KeyVault/vaults', parameters('existingKeyVaultName'))]"
+            ]
+        }
+    ]
+}
