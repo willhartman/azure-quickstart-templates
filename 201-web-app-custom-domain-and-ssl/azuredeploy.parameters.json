@@ -5,17 +5,14 @@
         "webAppName": {
             "value": "GEN-CUSTOM-WEBAPP-NAME"
         },
+        "certificateName": {
+            "value": "GEN-CERTIFICATE-NAME"
+        },
         "appServicePlanName": {
             "value": "GEN-APPSERVICEPLAN-NAME"
         },
         "customHostname": {
             "value": "GEN-CUSTOM-FQDN-NAME"
-        },
-        "existingKeyVaultName": {
-            "value": "GEN-KEYVAULT-RESOURCE-ID"
-        },
-        "existingKeyVaultSecretName": {
-            "value": "GEN-KEYVAULT-SSL-SECRET-NAME"
         }
     }
 }

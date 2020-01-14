@@ -20,21 +20,12 @@
                 "description": "The custom hostname that you wish to add."
             }
         },
-         "existingKeyVaultName":{
-            "type":"string",
-            "metadata":{
-                "description":"Existing Key Vault Name"
-            }
-        },
-        "existingKeyVaultSecretName":{
-            "type":"string",
-            "metadata":{
-            "description":"Key Vault Secret that contains a PFX certificate"
+        "certificateName": {
+            "type": "string",
+            "metadata": {
+                "description": "Name of certificate"
             }
         }
-    },
-    "variables": {
-        "certificateName": "[concat(parameters('webAppName'),'-cert-', uniquestring(resourceGroup().id))]"
     },
     "resources": [
         {
@@ -79,30 +70,16 @@
             ]
         },
         {
-            "type":"Microsoft.Web/certificates",
-            "name":"[variables('certificateName')]",
-            "apiVersion":"2016-03-01",
-            "location":"[resourceGroup().location]",
-            "properties":{
-                "keyVaultId":"[resourceId('Microsoft.KeyVault/vaults', parameters('existingKeyVaultName'))]",
-                "keyVaultSecretName":"[parameters('existingKeyVaultSecretName')]",
-                "serverFarmId": "[resourceId('Microsoft.Web/serverFarms',parameters('appServicePlanName'))]"
-            },
-            "dependsOn": [
-                "[concat('Microsoft.Web/sites/',parameters('webAppName'))]"
-            ]
-        },
-        {
             "type":"Microsoft.Web/sites/hostnameBindings",
             "name":"[concat(parameters('webAppName'), '/', parameters('customHostname'))]",
             "apiVersion":"2016-03-01",
             "location":"[resourceGroup().location]",
             "properties":{
                 "sslState":"SniEnabled",
-                "thumbprint":"[reference(resourceId('Microsoft.Web/certificates', variables('certificateName'))).Thumbprint]"
+                "thumbprint":"[reference(resourceId('Microsoft.Web/certificates', parameters('certificateName'))).Thumbprint]"
             },
             "dependsOn": [
-                "[concat('Microsoft.Web/certificates/',variables('certificateName'))]"
+                "[concat('Microsoft.Web/certificates/',parameters('certificateName'))]"
             ]
         }
     ]
