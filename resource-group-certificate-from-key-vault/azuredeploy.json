@@ -30,10 +30,7 @@
             "properties": {
                 "keyVaultId": "[resourceId('Microsoft.KeyVault/vaults', parameters('existingKeyVaultName'))]",
                 "keyVaultSecretName": "[parameters('existingKeyVaultSecretName')]"
-            },
-            "dependsOn": [
-                "[resourceId('Microsoft.KeyVault/vaults', parameters('existingKeyVaultName'))]"
-            ]
+            }
         }
     ]
 }
