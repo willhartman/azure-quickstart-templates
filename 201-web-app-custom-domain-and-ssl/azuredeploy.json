@@ -77,7 +77,10 @@
             "properties":{
                 "sslState":"SniEnabled",
                 "thumbprint":"[reference(resourceId('Microsoft.Web/certificates', parameters('certificateName')), '2019-08-01').Thumbprint]"
-            }
+            },
+            "dependsOn": [
+                "[concat('Microsoft.Web/sites/',parameters('webAppName'))]"
+            ]
         }
     ]
 }
