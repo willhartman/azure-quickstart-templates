@@ -35,7 +35,8 @@
             "location": "[resourceGroup().location]",
             "properties": {
                 "keyVaultId": "[resourceId('Microsoft.KeyVault/vaults', parameters('existingKeyVaultName'))]",
-                "keyVaultSecretName": "[parameters('existingKeyVaultSecretName')]"
+                "keyVaultSecretName": "[parameters('existingKeyVaultSecretName')]",
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('existingServerFarmName'))]"
             }
         }
     ]
