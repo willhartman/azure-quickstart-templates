@@ -14,6 +14,12 @@
                 "description": "Key Vault Secret that contains a PFX certificate"
             }
         },
+        "existingServerFarmName": {
+            "type": "string",
+            "metadata": {
+                "description": "Existing App Service Plan name."
+            }
+        },
         "certificateName": {
             "type": "string",
             "metadata": {
@@ -29,7 +35,8 @@
             "location": "[resourceGroup().location]",
             "properties": {
                 "keyVaultId": "[resourceId('Microsoft.KeyVault/vaults', parameters('existingKeyVaultName'))]",
-                "keyVaultSecretName": "[parameters('existingKeyVaultSecretName')]"
+                "keyVaultSecretName": "[parameters('existingKeyVaultSecretName')]",
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('existingServerFarmName'))]"
             }
         }
     ]

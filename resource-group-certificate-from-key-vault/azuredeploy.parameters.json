@@ -10,6 +10,9 @@
         },
         "existingKeyVaultSecretName": {
             "value": "GEN-KEYVAULT-SSL-SECRET-NAME"
+        },
+        "existingServerFarmName": {
+            "value": "GEN-SERVERFARM-NAME"
         }
     }
 }
