@@ -17,5 +17,25 @@ steps:
 
 - task: PublishPipelineArtifact@1
   inputs:
-    targetPath: '$(Build.SourcesDirectory)' 
-    artifactName: ''
+    targetPath: '$(Build.SourcesDirectory)/101-key-vault-create' 
+    artifactName: '101-key-vault-create'
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Build.SourcesDirectory)/101-keyvault-add-access-policy' 
+    artifactName: '101-keyvault-add-access-policy'
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Build.SourcesDirectory)/201-key-vault-secret-create' 
+    artifactName: '201-key-vault-secret-create'
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Build.SourcesDirectory)/resource-group-certificate-from-key-vault' 
+    artifactName: 'resource-group-certificate-from-key-vault'
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Build.SourcesDirectory)/app-service-plan' 
+    artifactName: 'app-service-plan'
