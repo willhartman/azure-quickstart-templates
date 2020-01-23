@@ -88,7 +88,7 @@
                 "canonicalName": "[parameters('customHostname')]"
             },
             "dependsOn": [
-                "[concat('Microsoft.Web/sites/hostnameBindings',parameters('webAppName'),'/',parameters('customHostname'))]"
+                "[concat('Microsoft.Web/sites/hostnameBindings','/',parameters('webAppName'),'/',parameters('customHostname'))]"
             ]
         }
     ]
