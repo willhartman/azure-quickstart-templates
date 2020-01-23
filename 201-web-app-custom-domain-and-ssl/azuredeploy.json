@@ -27,7 +27,34 @@
             }
         }
     },
+    "variables": {
+        "subdomain": "[substring(parameters('customHostname'), 0, variables('customHostnameFirstPeriodIndex'))]",
+        "domain": "[substring(parameters('customHostname'), add(variables('customHostnameFirstPeriodIndex'), 1))]",
+        "customHostnameFirstPeriodIndex": "[indexOf(parameters('customHostname'), '.')]"
+    },
     "resources": [
+        {
+            "type": "Microsoft.Network/dnszones",
+            "name": "[variables('domain')]",
+            "apiVersion": "2016-04-01",
+            "location": "global",
+            "properties": {}
+        },
+        {
+            "type": "Microsoft.Network/dnszones/CNAME",
+            "apiVersion": "2018-05-01",
+            "name": "[concat(variables('domain'), '/', variables('subdomain'))]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/dnszones', variables('domain'))]"
+            ],
+            "properties": {
+                "TTL": 3600,
+                "CNAMERecord": {
+                    "cname": "[concat(parameters('webAppName'), '.azurewebsites.net')]"
+                },
+                "targetResource": {}
+            }
+        },
         {
             "apiVersion": "2016-03-01",
             "name": "[parameters('appServicePlanName')]",
@@ -66,12 +93,13 @@
                 "reserved": true
             },
             "dependsOn": [
-                "[concat('Microsoft.Web/serverFarms/',parameters('appServicePlanName'))]"
+                "[concat('Microsoft.Web/serverFarms/',parameters('appServicePlanName'))]",
+                "[resourceId('Microsoft.Network/dnszones/CNAME', variables('domain'), variables('subdomain'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/hostnameBindings",
-            "name": "[concat(parameters('webAppName'), '/', parameters('customHostname'))]",
+            "name": "[concat(parameters('webAppName'),'/',parameters('customHostname'))]",
             "apiVersion": "2016-03-01",
             "location": "[resourceGroup().location]",
             "dependsOn": [
@@ -88,7 +116,34 @@
                 "canonicalName": "[parameters('customHostname')]"
             },
             "dependsOn": [
-                "[concat('Microsoft.Web/sites/hostnameBindings','/',parameters('webAppName'),'/',parameters('customHostname'))]"
+                "[resourceId('Microsoft.Web/sites/hostnameBindings', parameters('webAppName'), parameters('customHostname'))]"
+            ]
+        },
+        {
+            "name": "nestedTemplate1",
+            "apiVersion": "2017-05-10",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "template": {
+                    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "resources": [
+                        {
+                            "type": "Microsoft.Web/sites/hostnameBindings",
+                            "name": "[concat(parameters('webAppName'),'/',parameters('customHostname'))]",
+                            "apiVersion": "2016-03-01",
+                            "location": "[resourceGroup().location]",
+                            "properties": {
+                                "sslState": "SniEnabled",
+                                "thumbprint": "[reference(resourceId('Microsoft.Web/certificates', parameters('certificateName')), '2019-08-01').Thumbprint]"
+                            }
+                        }
+                    ]
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/certificates', parameters('certificateName'))]"
             ]
         }
     ]
