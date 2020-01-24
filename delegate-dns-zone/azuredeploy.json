@@ -1,0 +1,53 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "customHostname": {
+            "type": "string",
+            "metadata": {
+                "description": "The custom hostname that you wish to add."
+            }
+        }
+    },
+    "variables": {
+        "domain": "[substring(parameters('customHostname'), add(variables('customHostnameFirstPeriodIndex'), 1))]",
+        "customHostnameFirstPeriodIndex": "[indexOf(parameters('customHostname'), '.')]",
+        "parentDomain": "[substring(variables('domain'), add(variables('domainFirstPeriodIndex'), 1))]",
+        "domainFirstPeriodIndex": "[indexOf(variables('domain'), '.')]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Network/dnszones",
+            "name": "[variables('parentDomain')]",
+            "apiVersion": "2016-04-01",
+            "location": "global",
+            "properties": {}
+        },
+        {
+            "type": "Microsoft.Network/dnszones/a",
+            "name": "[concat(parameters('newZoneName'), '/', parameters('newRecordName'))]",
+            "apiVersion": "2016-04-01",
+            "location": "global",
+            "dependsOn": [
+                "[parameters('newZoneName')]"
+            ],
+            "properties": {
+                "TTL": 3600,
+                "ARecords": [
+                    {
+                        "ipv4Address": "1.2.3.4"
+                    },
+                    {
+                        "ipv4Address": "1.2.3.5"
+                    }
+                ]
+            }
+        }
+    ],
+    "outputs": {
+        "nameServers": {
+            "type": "array",
+            "value": "[reference(parameters('newZoneName')).nameServers]"
+        }
+    }
+}

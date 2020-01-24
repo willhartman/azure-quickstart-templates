@@ -146,5 +146,11 @@
                 "[resourceId('Microsoft.Web/certificates', parameters('certificateName'))]"
             ]
         }
-    ]
+    ],
+    "outputs": {
+        "nameServers": {
+            "type": "array",
+            "value": "[reference(resourceId('Microsoft.Network/dnszones', variables('domain')), '2016-04-01').nameServers]"
+        }
+    }
 }
