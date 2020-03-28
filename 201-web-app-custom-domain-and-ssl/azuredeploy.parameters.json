@@ -13,6 +13,12 @@
         },
         "customHostname": {
             "value": "GEN-CUSTOM-FQDN-NAME"
+        },
+        "linuxFxVersion": {
+            "value": "NODE|10-lts"
+        },
+        "appCommandLine": {
+            "value": "npm start"
         }
     }
 }
