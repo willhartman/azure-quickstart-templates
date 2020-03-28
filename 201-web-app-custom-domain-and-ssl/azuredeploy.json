@@ -20,6 +20,12 @@
                 "description": "The custom hostname that you wish to add."
             }
         },
+        "certificateName": {
+            "type": "string",
+            "metadata": {
+                "description": "Name of certificate"
+            }
+        },
         "linuxFxVersion": {
             "type": "string",
             "metadata": {
