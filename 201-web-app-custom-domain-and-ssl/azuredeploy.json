@@ -20,10 +20,16 @@
                 "description": "The custom hostname that you wish to add."
             }
         },
-        "certificateName": {
+        "linuxFxVersion": {
             "type": "string",
             "metadata": {
-                "description": "Name of certificate"
+                "description": "The stack to use."
+            }
+        },
+        "appCommandLine": {
+            "type": "string",
+            "metadata": {
+                "description": "The command to start the application."
             }
         }
     },
@@ -86,9 +92,9 @@
                 "name": "[parameters('webAppName')]",
                 "serverFarmId": "[resourceId('Microsoft.Web/serverFarms',parameters('appServicePlanName'))]",
                 "siteConfig": {
-                    "linuxFxVersion": "NODE|10-lts",
+                    "linuxFxVersion": "parameters('linuxFxVersion')",
                     "alwaysOn": "true",
-                    "appCommandLine": "npm start"
+                    "appCommandLine": "parameters('appCommandLine')"
                 },
                 "reserved": true
             },
