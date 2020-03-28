@@ -98,9 +98,9 @@
                 "name": "[parameters('webAppName')]",
                 "serverFarmId": "[resourceId('Microsoft.Web/serverFarms',parameters('appServicePlanName'))]",
                 "siteConfig": {
-                    "linuxFxVersion": "parameters('linuxFxVersion')",
+                    "linuxFxVersion": "[parameters('linuxFxVersion')]",
                     "alwaysOn": "true",
-                    "appCommandLine": "parameters('appCommandLine')"
+                    "appCommandLine": "[parameters('appCommandLine')]"
                 },
                 "reserved": true
             },
